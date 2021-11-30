@@ -1,7 +1,7 @@
 import { providers, utils } from "ethers";
 
 const provider = new providers.JsonRpcProvider(
-  "https://mainnet.infura.io/v3/46b0a71b78c04d519ebebc35e8579775"
+  "https://mainnet.infura.io/v3/" + process.env.REACT_APP_INFURA_KEY
 );
 
 export async function fetchEns(name) {
