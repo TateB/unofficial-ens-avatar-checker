@@ -1,31 +1,29 @@
-import "./App.css";
+import { Close, Search } from "@mui/icons-material";
 import {
-  Tab,
-  Tabs,
-  Box,
-  Paper,
-  TextField,
-  Grid,
-  IconButton,
-  Tooltip,
-  InputAdornment,
-  FormControl,
-  OutlinedInput,
-  FormHelperText,
-  InputLabel,
-  Typography,
-  Link,
+  Alert,
   Backdrop,
+  Box,
   CircularProgress,
   Collapse,
-  Alert,
+  FormControl,
+  Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  Link,
+  OutlinedInput,
+  Paper,
+  Tab,
+  Tabs,
+  Tooltip,
+  Typography,
 } from "@mui/material";
-import { useState } from "react";
 import { styled } from "@mui/system";
-import { TabManager } from "./Tabs/TabManager";
-import { Close, ContentCopy, Launch, Search, Send } from "@mui/icons-material";
-import { fetchAddress, fetchEns, fetchMetadata } from "./data/loadens";
+import { useState } from "react";
+import "./App.css";
+import { fetchEns, fetchMetadata } from "./data/loadens";
 import { loadAllNFTs } from "./data/loadopensea";
+import { TabManager } from "./Tabs/TabManager";
 
 const BackgroundBox = styled(Paper)`
   display: flex;

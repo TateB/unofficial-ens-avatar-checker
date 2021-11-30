@@ -1,13 +1,6 @@
 import { Launch } from "@mui/icons-material";
-import {
-  Avatar,
-  Button,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { Box, styled } from "@mui/system";
+import { Avatar, Button, Grid, Link } from "@mui/material";
+import { styled } from "@mui/system";
 
 const AvatarComponent = styled(Avatar)(({ theme }) => ({
   width: "300px",
@@ -18,12 +11,8 @@ const AvatarComponent = styled(Avatar)(({ theme }) => ({
   },
 }));
 
-const TextFieldComponent = styled(TextField)`
-  width: "100%";
-`;
-
 export function View(props) {
-  const { address, metadata } = props;
+  const { metadata } = props;
 
   return (
     <Grid

@@ -9,13 +9,11 @@ import {
   Grid,
   IconButton,
   OutlinedInput,
-  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
 import { Box, styled } from "@mui/system";
-import { useEffect, useState } from "react";
-import { loadAllNFTs } from "../data/loadopensea";
+import { useState } from "react";
 import { ENSNFTTemplate } from "../other/ENSNFTTemplate";
 
 const AvatarComponent = styled(Avatar)(({ theme }) => ({

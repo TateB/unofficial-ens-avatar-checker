@@ -1,4 +1,3 @@
-import { parseBytes32String } from "@ethersproject/strings";
 import { providers, utils } from "ethers";
 
 const provider = new providers.JsonRpcProvider(

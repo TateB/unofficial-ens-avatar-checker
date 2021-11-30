@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Generate } from "./Generate";
 import { View } from "./View";
 
