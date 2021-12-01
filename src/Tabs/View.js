@@ -14,6 +14,13 @@ const AvatarComponent = styled(Avatar)(({ theme }) => ({
 export function View(props) {
   const { metadata } = props;
 
+  const makeAvatarLink = (avField) => {
+    if (avField.startsWith("eip155:1"))
+      return "https://opensea.io/assets/" + metadata.avField.split(":")[2];
+    if (avField.startsWith("https://")) return avField;
+    if (avField.startsWith("ipfs://")) return "https://ipfs.io/ipfs/" + avField;
+  };
+
   return (
     <Grid
       container
@@ -56,11 +63,7 @@ export function View(props) {
           <Button
             LinkComponent={Link}
             disabled={!metadata.avField}
-            href={
-              metadata.avField
-                ? "https://opensea.io/assets/" + metadata.avField.split(":")[2]
-                : null
-            }
+            href={makeAvatarLink(metadata.avField)}
             variant="outlined"
             endIcon={<Launch />}
             size="small"
