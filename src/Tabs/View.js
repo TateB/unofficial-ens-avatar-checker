@@ -63,7 +63,7 @@ export function View(props) {
           <Button
             LinkComponent={Link}
             disabled={!metadata.avField}
-            href={makeAvatarLink(metadata.avField)}
+            href={metadata.avField ? makeAvatarLink(metadata.avField) : ""}
             variant="outlined"
             endIcon={<Launch />}
             size="small"

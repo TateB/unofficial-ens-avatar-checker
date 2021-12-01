@@ -55,7 +55,6 @@ export function Generate(props) {
   const [alertOpen, setAlertOpen] = useState(false);
 
   const handleNFTSelect = (nft) => setSelectedNFT(nft);
-
   const NFTString = () =>
     `eip155:1/${selectedNFT.asset_contract.schema_name.toLowerCase()}:${
       selectedNFT.asset_contract.address
@@ -77,7 +76,7 @@ export function Generate(props) {
             <Box>
               <ENSNFTTemplateComponent
                 name={metadata.name}
-                src={selectedNFT.image_thumbnail_url}
+                src={selectedNFT.image_url}
               />
             </Box>
           ) : (
