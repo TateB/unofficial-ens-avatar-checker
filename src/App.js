@@ -8,7 +8,6 @@ import {
   FormControl,
   Grid,
   IconButton,
-  InputAdornment,
   InputLabel,
   Link,
   OutlinedInput,
@@ -119,13 +118,12 @@ function App() {
                       <Close fontSize="inherit" />
                     </IconButton>
                   }
-                  sx={{ width: "100%" }}
                 >
                   {errAlert}
                 </Alert>
               </Collapse>
             </Grid>
-            <Grid item xs={9} md={11}>
+            <Grid item xs={10} md={11}>
               <FormControl variant="outlined" fullWidth={true}>
                 <TranslucentLabel variant="outlined">ENS Name</TranslucentLabel>
                 <OutlinedInput
@@ -135,15 +133,16 @@ function App() {
                   onKeyPress={(e) =>
                     e.key === "Enter" ? submitNewName() : null
                   }
-                  endAdornment={
-                    <InputAdornment position="end">.eth</InputAdornment>
-                  }
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={3} md={1} pl={3}>
+            <Grid item xs={2} md={1} pl={2}>
               <Tooltip title="Submit">
-                <IconButton color="primary" onClick={submitNewName}>
+                <IconButton
+                  color="primary"
+                  disabled={name.length < 3}
+                  onClick={submitNewName}
+                >
                   <Search />
                 </IconButton>
               </Tooltip>

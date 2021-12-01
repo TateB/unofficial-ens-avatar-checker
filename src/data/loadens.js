@@ -1,17 +1,25 @@
-import { providers, utils } from "ethers";
+import ENS, { getEnsAddress, labelhash } from "@ensdomains/ensjs";
+import { providers } from "ethers";
 
 const provider = new providers.JsonRpcProvider(
   "https://mainnet.infura.io/v3/" + process.env.REACT_APP_INFURA_KEY
 );
+const ens = new ENS({ provider, ensAddress: getEnsAddress("1") });
 
 export async function fetchEns(name) {
-  if (name.endsWith(".eth")) name = name.substring(0, name.length - 4);
-  const formattedName = name + ".eth";
-  const resolver = await provider.getResolver(formattedName);
-  const tokenID = utils.id(name);
-  const address = await resolver.getAddress();
-  const avField = await resolver.getAvatar();
-  return { tokenID, address, avField };
+  if (name.split(".").length < 2) name += ".eth";
+  if (name.split(".").length > 2)
+    throw new Error("Subdomains are not supported yet.");
+  const nameData = await ens.name(name);
+  const coinAddr = await nameData.getAddress("ETH");
+  const ownerAddr = await nameData.getOwner();
+  const avField = await nameData.getText("avatar");
+  const tokenID = labelhash(name.split(".")[0]);
+
+  if (!ownerAddr) throw new Error("That ENS name is not registered.");
+  if (!coinAddr) throw new Error("That ENS name isn't set as a primary name.");
+
+  return { tokenID, address: coinAddr, avField };
 }
 
 export async function fetchMetadata(tokenID, avField) {
@@ -22,6 +30,7 @@ export async function fetchMetadata(tokenID, avField) {
     ).then((res) => res.json());
     fetchedData.tokenID = tokenID;
     fetchedData.avField = avField;
+    console.log(fetchedData);
     return fetchedData;
   } catch (error) {
     return new Error(error.message);

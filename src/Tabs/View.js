@@ -58,8 +58,7 @@ export function View(props) {
             disabled={!metadata.avField}
             href={
               metadata.avField
-                ? "https://opensea.io/assets/" +
-                  metadata.avField.linkage[0].content.split(":")[2]
+                ? "https://opensea.io/assets/" + metadata.avField.split(":")[2]
                 : null
             }
             variant="outlined"
