@@ -161,8 +161,8 @@ function App() {
             )}
           </AddressBox>
           <Tabs value={currentTab} onChange={handleTabChange}>
-            <Tab label="View" sx={{ fontWeight: 600 }} />
             <Tab label="Generate" sx={{ fontWeight: 600 }} />
+            <Tab label="View" sx={{ fontWeight: 600 }} />
           </Tabs>
           <TabContentBox>
             <TabManager
