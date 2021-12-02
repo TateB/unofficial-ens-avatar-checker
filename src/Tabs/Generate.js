@@ -1,4 +1,9 @@
-import { Clear, Close, ContentCopy } from "@mui/icons-material";
+import {
+  Clear,
+  Close,
+  ContentCopy,
+  ImageNotSupported,
+} from "@mui/icons-material";
 import {
   Alert,
   Avatar,
@@ -23,6 +28,7 @@ const AvatarComponent = styled(Avatar)(({ theme }) => ({
   img: {
     borderRadius: "6px",
   },
+  backgroundColor: "#d8d8d8",
 }));
 
 const NFTCardComponent = styled(CardActionArea)(({ theme }) => ({
@@ -49,6 +55,16 @@ const ENSNFTTemplateComponent = styled(ENSNFTTemplate)(({ theme }) => ({
   borderRadius: "7px",
 }));
 
+const DisplayCardComponent = styled(Box)(({ theme }) => ({
+  border: "1px solid rgba(0, 0, 0, 0.3)",
+  borderRadius: "8px",
+}));
+
+const DisplayCardGrid = styled(Grid)(({ theme }) => ({
+  padding: "10px",
+  maxHeight: "320px",
+}));
+
 export function Generate(props) {
   const { metadata, address, allNFTs } = props;
   const [selectedNFT, setSelectedNFT] = useState(null);
@@ -60,6 +76,37 @@ export function Generate(props) {
       selectedNFT.asset_contract.address
     }/${selectedNFT.token_id}`;
 
+  const DisplayCardComponentGenerator = (props) => (
+    <Grid item flexShrink={1}>
+      <DisplayCardComponent>
+        <DisplayCardGrid container flexDirection="column">
+          <Typography
+            position="absolute"
+            mt="-27px"
+            textAlign="left"
+            color={
+              props.disabled ? "rgba(0, 0, 0, 0.30)" : "rgba(0, 0, 0, 0.50)"
+            }
+            zIndex="1"
+            bgcolor="#f5f5f5"
+            variant="h6"
+          >
+            {props.title}
+          </Typography>
+          <Grid item zIndex="100">
+            {props.disabled ? (
+              <AvatarComponent variant="square">
+                <ImageNotSupported fontSize="large" />
+              </AvatarComponent>
+            ) : (
+              props.children
+            )}
+          </Grid>
+        </DisplayCardGrid>
+      </DisplayCardComponent>
+    </Grid>
+  );
+
   return (
     <Grid
       container
@@ -70,21 +117,33 @@ export function Generate(props) {
       width="100%"
       rowSpacing={3}
     >
-      <Grid item xs={12}>
-        {metadata.image_url ? (
-          selectedNFT ? (
-            <Box>
-              <ENSNFTTemplateComponent
-                name={metadata.name}
-                src={selectedNFT.image_url}
-              />
-            </Box>
+      <Grid
+        item
+        alignItems="center"
+        justifyContent="space-around"
+        container
+        xs={12}
+      >
+        <DisplayCardComponentGenerator disabled={!metadata.hasNFT} title="NFT">
+          {selectedNFT ? (
+            <ENSNFTTemplateComponent
+              name={metadata.name}
+              src={selectedNFT.image_url}
+            />
           ) : (
             <AvatarComponent variant="square" src={metadata.image_url} />
-          )
-        ) : (
-          <AvatarComponent variant="square"></AvatarComponent>
-        )}
+          )}
+        </DisplayCardComponentGenerator>
+        <DisplayCardComponentGenerator
+          disabled={!metadata.background_image && !selectedNFT}
+          title="Avatar"
+        >
+          {selectedNFT ? (
+            <AvatarComponent variant="square" src={selectedNFT.image_url} />
+          ) : (
+            <AvatarComponent variant="square" src={metadata.background_image} />
+          )}
+        </DisplayCardComponentGenerator>
       </Grid>
       <Grid item xs={12}>
         <Collapse in={alertOpen}>

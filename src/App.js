@@ -78,10 +78,10 @@ function App() {
   const submitNewName = async () => {
     setLoading(true);
     return fetchEns(name)
-      .then(({ tokenID, address, avField }) =>
+      .then(({ tokenID, address, avField, hasNFT }) =>
         Promise.all([
           setAddress(address),
-          fetchMetadata(tokenID, avField),
+          fetchMetadata(tokenID, avField, hasNFT),
           loadAllNFTs(address),
         ])
       )
