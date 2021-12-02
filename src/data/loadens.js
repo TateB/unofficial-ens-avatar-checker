@@ -15,7 +15,8 @@ export async function fetchEns(name) {
   const ownerAddr = await nameData.getOwner();
   const ownerPrimary = await ens.getName(coinAddr);
   const avField = await nameData.getText("avatar");
-  const hasNFT = nameArray()[nameArray().length - 1] === "eth"; // if last part is eth, then it has an associated ENS NFT
+  const hasNFT =
+    nameArray()[nameArray().length - 1] === "eth" && nameArray().length === 2; // if last part is eth and not subdomain, then it has an associated ENS NFT
   const tokenID = hasNFT ? labelhash(name.split(".")[0]) : namehash(name); // if it's a 2nd level .eth, then you can just use labelhash, otherwise a namehash is needed
 
   console.log(tokenID);
