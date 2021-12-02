@@ -1,6 +1,5 @@
 import {
   Backdrop,
-  Box,
   Button,
   CircularProgress,
   Dialog,
@@ -31,16 +30,6 @@ const ForegroundBox = styled(Paper)`
   width: 100%;
   background-color: #f5f5f5;
   padding: 25px;
-`;
-
-const TabContentBox = styled(Box)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  flex-grow: 2;
-  margin-top: 20px;
-  width: 100%;
 `;
 
 const AlertComponent = (msg, setFunc) => (
