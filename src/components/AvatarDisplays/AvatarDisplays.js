@@ -1,5 +1,5 @@
 import { ImageNotSupported } from "@mui/icons-material";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import {
   AvatarComponent,
   AvatarDisplayTemplate,
@@ -38,5 +38,10 @@ export const AvatarDisplays = (props) => (
         </AvatarComponent>
       )}
     </AvatarDisplayTemplate>
+    {!props.metadata.hasNFT &&
+    !props.metadata.background_image &&
+    !props.selectedNFT ? (
+      <Typography>Please select an NFT to preview your avatar.</Typography>
+    ) : null}
   </Grid>
 );

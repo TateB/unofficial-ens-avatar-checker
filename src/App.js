@@ -126,6 +126,27 @@ function App() {
           </Fragment>
         ) : null}
 
+        {address === "" ? (
+          <Grid
+            item
+            container
+            alignItems="center"
+            justifyContent="flex-start"
+            xs={11}
+            md={9}
+            pl="25px"
+          >
+            <Typography
+              color="GrayText"
+              variant="h6"
+              lineHeight="1"
+              textAlign="left"
+            >
+              Enter an ENS name to get started
+            </Typography>
+          </Grid>
+        ) : null}
+
         <Grid
           item
           container
