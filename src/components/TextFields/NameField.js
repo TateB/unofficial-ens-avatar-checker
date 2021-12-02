@@ -83,7 +83,7 @@ export const NameField = (props) => (
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={2} md={1} pl={3}>
+        <Grid item xs={2} md={1} pl={2}>
           <Tooltip title="Clear Search">
             <IconButton color="default" onClick={props.clearSearch}>
               <Clear />

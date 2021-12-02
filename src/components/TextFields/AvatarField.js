@@ -34,7 +34,7 @@ export const AvatarField = (props) => (
         />
       </FormControl>
     </Grid>
-    <Grid item pl={3} xs={2} md={1}>
+    <Grid item pl={2} xs={2} md={1}>
       <Tooltip title="Copy to Clipboard">
         <IconButton
           disabled={props.selectedNFT === null}
