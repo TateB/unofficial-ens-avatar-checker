@@ -1,6 +1,6 @@
 import "./fonts.css";
 
-export function ENSNFTTemplate(props) {
+export function ENSNFTAvatarTemplate(props) {
   const { name, src } = props;
   return (
     <svg
