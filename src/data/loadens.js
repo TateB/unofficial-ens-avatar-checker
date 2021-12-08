@@ -1,8 +1,9 @@
 import ENS, { getEnsAddress, labelhash, namehash } from "@ensdomains/ensjs";
 import { Contract, providers } from "ethers";
 
-const provider = new providers.JsonRpcProvider(
-  "https://mainnet.infura.io/v3/" + process.env.REACT_APP_INFURA_KEY
+const provider = new providers.StaticJsonRpcProvider(
+  "https://mainnet.infura.io/v3/" + process.env.REACT_APP_INFURA_KEY,
+  "mainnet"
 );
 const ens = new ENS({ provider, ensAddress: getEnsAddress("1") });
 
