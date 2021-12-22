@@ -36,7 +36,7 @@ export function ENSNFTAvatarTemplate(props) {
           <tspan x="32" dy="-1.2em">
             {_name.substring(0, _name.length / 2)}
           </tspan>
-          <tspan x="32" dy="1.em">
+          <tspan x="32" dy="1.2em">
             {_name.substring(_name.length / 2, _name.length)}
           </tspan>
         </Fragment>
