@@ -35,13 +35,15 @@ export const NameField = (props) => (
         </Grid>
         <Grid item xs={2} md={1} pl={2}>
           <Tooltip title="Submit">
-            <IconButton
-              color="primary"
-              disabled={props.name.length < 3}
-              onClick={props.submitNewName}
-            >
-              <Search />
-            </IconButton>
+            <span>
+              <IconButton
+                color="primary"
+                disabled={props.name.length < 3}
+                onClick={props.submitNewName}
+              >
+                <Search />
+              </IconButton>
+            </span>
           </Tooltip>
         </Grid>
       </Fragment>

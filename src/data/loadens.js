@@ -1,5 +1,6 @@
 import ENS, { getEnsAddress, labelhash, namehash } from "@ensdomains/ensjs";
 import { Contract, providers } from "ethers";
+import { CID } from "multiformats/cid";
 
 const provider = new providers.StaticJsonRpcProvider(
   "https://mainnet.infura.io/v3/" + process.env.REACT_APP_INFURA_KEY,
@@ -45,6 +46,50 @@ export async function fetchMetadata(tokenID, avField, hasNFT) {
     return fetchedData;
   } catch (error) {
     return new Error(error.message);
+  }
+}
+
+export async function validateNewInput(uri) {
+  const IPFS_GATEWAY = "https://ipfs.io/ipfs/";
+  const IPNS_GATEWAY = "https://ipfs.io/ipns/";
+
+  if (uri.startsWith("data:") || uri.startsWith("http")) {
+    return uri;
+  } else if (uri.startsWith("ipfs://ipfs/")) {
+    return uri.replace("ipfs://ipfs/", IPFS_GATEWAY);
+  } else if (uri.startsWith("ipfs://ipns/")) {
+    return uri.replace("ipfs://ipns/", IPNS_GATEWAY);
+  } else if (uri.startsWith("ipfs://")) {
+    return uri.replace("ipfs://", IPFS_GATEWAY);
+  } else if (uri.startsWith("/ipfs/")) {
+    return uri.replace("/ipfs/", IPFS_GATEWAY);
+  } else if (uri.startsWith("ipfs/")) {
+    return uri.replace("ipfs/", IPFS_GATEWAY);
+  } else if (isCID(uri)) {
+    // Assume that it's a regular IPFS CID and not an IPNS key
+    return IPFS_GATEWAY + uri;
+  } else if (uri.startsWith("ipns://ipns/")) {
+    return uri.replace("ipns://ipns/", IPNS_GATEWAY);
+  } else if (uri.startsWith("ipns://")) {
+    return uri.replace("ipns://", IPNS_GATEWAY);
+  } else if (uri.startsWith("/ipns/")) {
+    return uri.replace("/ipns/", IPNS_GATEWAY);
+  } else if (uri.startsWith("ipns/")) {
+    return uri.replace("ipns/", IPNS_GATEWAY);
+  } else {
+    // we may want to throw error here
+    return false;
+  }
+
+  function isCID(hash) {
+    try {
+      if (typeof hash === "string") {
+        return Boolean(CID.parse(hash));
+      }
+      return Boolean(CID.asCID(hash));
+    } catch (e) {
+      return false;
+    }
   }
 }
 

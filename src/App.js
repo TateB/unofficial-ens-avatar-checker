@@ -50,6 +50,7 @@ function App() {
   const [errAlert, setErrAlert] = useState("");
   const [positiveAlert, setPositiveAlert] = useState("");
   const [selectedNFT, _setSelectedNFT] = useState(null);
+  const [customUrl, setCustomUrl] = useState(null);
 
   const ErrorAlert = () => AlertComponent(errAlert, setErrAlert);
   const PositiveAlert = () => AlertComponent(positiveAlert, setPositiveAlert);
@@ -103,7 +104,11 @@ function App() {
         <PositiveAlert />
         {address !== "" ? (
           <Fragment>
-            <AvatarDisplays metadata={metadata} selectedNFT={selectedNFT} />
+            <AvatarDisplays
+              metadata={metadata}
+              selectedNFT={selectedNFT}
+              customUrl={customUrl}
+            />
 
             <Grid
               item
@@ -201,6 +206,7 @@ function App() {
                   setSelectedNFT={setSelectedNFT}
                   metadata={metadata}
                   setPositiveAlert={setPositiveAlert}
+                  newUrlCallback={(url) => setCustomUrl(url)}
                 />
               </ForegroundBox>
             </Grid>

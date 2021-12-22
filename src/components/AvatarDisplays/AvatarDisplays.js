@@ -17,21 +17,28 @@ export const AvatarDisplays = (props) => (
     rowGap={3}
   >
     <AvatarDisplayTemplate disabled={!props.metadata.hasNFT} title="NFT">
-      {props.selectedNFT ? (
+      {props.customUrl || props.selectedNFT ? (
         <ENSNFTAvatarTemplate
           name={props.metadata.name}
-          src={props.selectedNFT.image_url}
+          src={props.customUrl || props.selectedNFT.image_url}
         />
       ) : (
         <AvatarComponent variant="square" src={props.metadata.image_url} />
       )}
     </AvatarDisplayTemplate>
     <AvatarDisplayTemplate
-      disabled={!props.metadata.background_image && !props.selectedNFT}
+      disabled={
+        !props.metadata.background_image &&
+        !props.selectedNFT &&
+        !props.customUrl
+      }
       title="Avatar"
     >
-      {props.selectedNFT ? (
-        <AvatarComponent variant="square" src={props.selectedNFT.image_url} />
+      {props.customUrl || props.selectedNFT ? (
+        <AvatarComponent
+          variant="square"
+          src={props.customUrl || props.selectedNFT.image_url}
+        />
       ) : (
         <AvatarComponent variant="square" src={props.metadata.background_image}>
           <ImageNotSupported fontSize="large" color="disabled" />
@@ -40,7 +47,8 @@ export const AvatarDisplays = (props) => (
     </AvatarDisplayTemplate>
     {!props.metadata.hasNFT &&
     !props.metadata.background_image &&
-    !props.selectedNFT ? (
+    !props.selectedNFT &&
+    !props.customUrl ? (
       <Typography>Please select an NFT to preview your avatar.</Typography>
     ) : null}
   </Grid>
