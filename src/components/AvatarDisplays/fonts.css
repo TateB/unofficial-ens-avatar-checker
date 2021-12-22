@@ -3,6 +3,7 @@ text {
   font-weight: bold;
   font-style: normal;
   line-height: 34px;
+  letter-spacing: -0.01em;
 }
 
 @font-face {

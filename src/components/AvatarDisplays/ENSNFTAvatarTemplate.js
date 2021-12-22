@@ -1,7 +1,53 @@
+import { createCanvas } from "canvas";
+import { Fragment } from "ethers/lib/utils";
+import { useEffect, useState } from "react";
 import "./fonts.css";
 
 export function ENSNFTAvatarTemplate(props) {
-  const { name, src } = props;
+  const { name: _name, src } = props;
+
+  const [fontSize, setFontSize] = useState(32);
+  const [name, setName] = useState("");
+
+  const getCharLength = (name) => {
+    let byteLength = Buffer.byteLength(name);
+    byteLength = byteLength === name.length ? byteLength : byteLength / 1.6;
+    return byteLength;
+  };
+
+  const getFontSize = (name) => {
+    const canvas = createCanvas(270, 270);
+    const ctx = canvas.getContext("2d");
+    ctx.font = "20px PlusJakartaSans";
+    const text = ctx.measureText(name);
+    const fontSize = Math.floor(20 * ((196 - name.length) / text.width));
+    return fontSize < 34 ? fontSize : 32;
+  };
+
+  useEffect(() => {
+    const charLength = getCharLength(_name);
+    let newFontSize = getFontSize(_name);
+
+    if (charLength > 60) {
+      setName(_name.substring(0, 60 - 3) + "...");
+    } else if (charLength > 25) {
+      setName(
+        <Fragment>
+          <tspan x="32" dy="-1.2em">
+            {_name.substring(0, _name.length / 2)}
+          </tspan>
+          <tspan x="32" dy="1.em">
+            {_name.substring(_name.length / 2, _name.length)}
+          </tspan>
+        </Fragment>
+      );
+      newFontSize *= 2;
+    } else {
+      setName(_name);
+    }
+    setFontSize(newFontSize);
+  }, [_name, src]);
+
   return (
     <svg
       width="270"
@@ -85,7 +131,7 @@ export function ENSNFTAvatarTemplate(props) {
       <text
         x="32.5"
         y="231"
-        font-size="32px"
+        font-size={fontSize + "px"}
         fill="white"
         filter="url(#dropShadow)"
       >
