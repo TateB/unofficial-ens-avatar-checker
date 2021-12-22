@@ -1,0 +1,71 @@
+/*! CSS Used from: https://claim.ens.domains/static/css/main.89c0e717.chunk.css */
+/*! CSS Used from: Embedded */
+.gUMjcu {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 8px 16px 8px 10px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 20px;
+  background: white;
+  max-width: 200px;
+  border-radius: 64px;
+  font-family: "Plus Jakarta Sans";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.dWarUD {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+  min-width: 112px;
+}
+.dWarUD div {
+  overflow: hidden;
+  display: block;
+}
+.cluRKA {
+  border-radius: 50%;
+  min-width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+.gMFPVB {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 21px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  letter-spacing: -0.01em;
+  color: rgb(50, 50, 50);
+  opacity: 0.3;
+}
+.fjJuTI {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgb(152, 152, 152);
+  font-family: "Plus Jakarta Sans";
+  text-align: left;
+}
+
+.iTzboV {
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 23px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-top: -2px;
+  padding-bottom: 3px;
+  font-family: "Plus Jakarta Sans";
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+}

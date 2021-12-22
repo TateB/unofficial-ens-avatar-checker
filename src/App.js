@@ -13,6 +13,7 @@ import { styled } from "@mui/system";
 import { Fragment, useState } from "react";
 import "./App.css";
 import { AvatarDisplays } from "./components/AvatarDisplays/AvatarDisplays";
+import { AvatarPreviews } from "./components/AvatarPreviews";
 import { NFTViewComponent } from "./components/Other/NFTViewComponent";
 import { AvatarField } from "./components/TextFields/AvatarField";
 import { NameField } from "./components/TextFields/NameField";
@@ -51,6 +52,7 @@ function App() {
   const [positiveAlert, setPositiveAlert] = useState("");
   const [selectedNFT, _setSelectedNFT] = useState(null);
   const [customUrl, setCustomUrl] = useState(null);
+  const [balance, setBalance] = useState("0.0000");
 
   const ErrorAlert = () => AlertComponent(errAlert, setErrAlert);
   const PositiveAlert = () => AlertComponent(positiveAlert, setPositiveAlert);
@@ -67,12 +69,13 @@ function App() {
   const submitNewName = async () => {
     setLoading(true);
     return fetchEns(name)
-      .then(({ tokenID, address, avField, hasNFT, formattedName }) =>
+      .then(({ tokenID, address, avField, hasNFT, formattedName, balance }) =>
         Promise.all([
           setAddress(address),
           fetchMetadata(tokenID, avField, hasNFT),
           loadAllNFTs(address),
           setName(formattedName),
+          setBalance(balance),
         ])
       )
       .then((returned) => [setMetadata(returned[1], setAllNFTs(returned[2]))])
@@ -109,6 +112,14 @@ function App() {
               selectedNFT={selectedNFT}
               customUrl={customUrl}
             />
+            {(customUrl || selectedNFT || metadata.background_image) && (
+              <AvatarPreviews
+                imgToUse={customUrl || selectedNFT || metadata.background_image}
+                name={metadata.name}
+                address={address}
+                balance={balance}
+              />
+            )}
 
             <Grid
               item

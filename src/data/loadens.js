@@ -1,5 +1,5 @@
 import ENS, { getEnsAddress, labelhash, namehash } from "@ensdomains/ensjs";
-import { Contract, providers } from "ethers";
+import { Contract, FixedNumber, providers } from "ethers";
 import { CID } from "multiformats/cid";
 
 const provider = new providers.StaticJsonRpcProvider(
@@ -17,6 +17,8 @@ export async function fetchEns(name) {
   const ownerAddr = await nameData.getOwner();
   const ownerPrimary = await ens.getName(coinAddr);
   const avField = await nameData.getText("avatar");
+  let balance = FixedNumber.fromValue(await provider.getBalance(coinAddr), 18);
+  balance = balance.round(4).toString();
   const hasNFT =
     nameArray()[nameArray().length - 1] === "eth" && nameArray().length === 2; // if last part is eth and not subdomain, then it has an associated ENS NFT
   const tokenID = hasNFT ? labelhash(name.split(".")[0]) : namehash(name); // if it's a 2nd level .eth, then you can just use labelhash, otherwise a namehash is needed
@@ -30,7 +32,14 @@ export async function fetchEns(name) {
       "That ENS name isn't set as the primary name of the owner's wallet."
     );
 
-  return { tokenID, address: coinAddr, avField, hasNFT, formattedName: name };
+  return {
+    tokenID,
+    address: coinAddr,
+    avField,
+    hasNFT,
+    formattedName: name,
+    balance,
+  };
 }
 
 export async function fetchMetadata(tokenID, avField, hasNFT) {
