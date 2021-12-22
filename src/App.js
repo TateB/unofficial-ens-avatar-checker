@@ -112,9 +112,15 @@ function App() {
               selectedNFT={selectedNFT}
               customUrl={customUrl}
             />
-            {(customUrl || selectedNFT || metadata.background_image) && (
+            {(customUrl ||
+              selectedNFT?.image_url ||
+              metadata.background_image) && (
               <AvatarPreviews
-                imgToUse={customUrl || selectedNFT || metadata.background_image}
+                imgToUse={
+                  customUrl ||
+                  selectedNFT?.image_url ||
+                  metadata.background_image
+                }
                 name={metadata.name}
                 address={address}
                 balance={balance}
