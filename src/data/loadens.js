@@ -1,6 +1,7 @@
 import ENS, { getEnsAddress, labelhash, namehash } from "@ensdomains/ensjs";
 import { Contract, FixedNumber, providers } from "ethers";
 import { CID } from "multiformats/cid";
+import { loadNFTDetail } from "./loadopensea";
 
 const provider = new providers.StaticJsonRpcProvider(
   "https://mainnet.infura.io/v3/" + process.env.REACT_APP_INFURA_KEY,
@@ -103,13 +104,16 @@ export async function validateNewInput(uri) {
 }
 
 export async function checkNFTMetadata(nft) {
-  const { address, schema_name } = nft.asset_contract;
+  const { contractSchema } = await loadNFTDetail(
+    nft.contract_address,
+    nft.token_id
+  );
   const ABI = [];
-  if (schema_name === "ERC721")
+  if (contractSchema === "ERC721")
     ABI.push(
       "function tokenURI(uint256 tokenId) external view returns (string memory)"
     );
-  if (schema_name === "ERC1155")
+  if (contractSchema === "ERC1155")
     ABI.push(
       "function uri(uint256) public view virtual override returns (string memory)"
     );
@@ -117,13 +121,13 @@ export async function checkNFTMetadata(nft) {
     throw new Error(
       "This NFT doesn't follow an ERC schema, and isn't currently compatible with ENS avatars."
     );
-  const contract = new Contract(address, ABI, provider);
+  const contract = new Contract(nft.contract_address, ABI, provider);
 
   try {
     await Object.values(contract.functions)[0](nft.token_id).then(
       (res) => res[0]
     );
-    return nft;
+    return { ...nft, contractSchema };
   } catch (err) {
     throw new Error(
       "This NFT doesn't have a metadata endpoint, and isn't currently compatible with ENS avatars."

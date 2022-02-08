@@ -26,29 +26,33 @@ const NFTImageComponent = styled(Box, {
 export const NFTViewComponent = (props) => (
   <Grid item container xs={12} spacing={2}>
     {props.allNFTs.map((nft) => (
-      <Grid item xs={6} md={3} key={nft.id} justifySelf="stretch">
+      <Grid
+        item
+        xs={6}
+        md={3}
+        key={nft.contract_address + nft.token_id}
+        justifySelf="stretch"
+      >
         <Card
           onClick={() => props.handleNFTSelect(nft)}
           raised={nft === props.selectedNFT}
           sx={{ height: "100%" }}
         >
           <NFTCardComponent>
-            <NFTImageComponent src={nft.image_thumbnail_url} />
+            <NFTImageComponent src={nft.cached_file_url} />
             <Typography
               fontWeight="500"
               alignSelf="flex-start"
               textAlign="left"
             >
-              {nft.asset_contract.name
-                ? nft.asset_contract.name
-                : "Unknown Contract"}
+              {nft.name ? nft.name : "Unknown NFT"}
             </Typography>
             <Typography alignSelf="flex-start" textAlign="left">
-              {nft.name
-                ? nft.name.length > 15
-                  ? nft.name.substr(0, 15) + "..."
-                  : nft.name
-                : "Unknown Name"}
+              {nft.description
+                ? nft.description.length > 15
+                  ? nft.description.substr(0, 15) + "..."
+                  : nft.description
+                : "An NFT."}
             </Typography>
           </NFTCardComponent>
         </Card>

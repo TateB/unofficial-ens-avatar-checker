@@ -9,10 +9,8 @@ import {
 import { useEffect, useState } from "react";
 import { validateNewInput } from "../../data/loadens";
 
-const NFTString = (selectedNFT) =>
-  `eip155:1/${selectedNFT?.asset_contract.schema_name.toLowerCase()}:${
-    selectedNFT?.asset_contract.address
-  }/${selectedNFT?.token_id}`;
+const NFTString = ({ contractSchema, contract_address, token_id }) =>
+  `eip155:1/${contractSchema.toLowerCase()}:${contract_address}/${token_id}`;
 
 export const AvatarField = (props) => {
   const { selectedNFT, metadata } = props;

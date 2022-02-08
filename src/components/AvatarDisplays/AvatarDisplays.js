@@ -20,7 +20,7 @@ export const AvatarDisplays = (props) => (
       {props.customUrl || props.selectedNFT ? (
         <ENSNFTAvatarTemplate
           name={props.metadata.name}
-          src={props.customUrl || props.selectedNFT.image_url}
+          src={props.customUrl || props.selectedNFT.cached_file_url}
         />
       ) : (
         <AvatarComponent variant="square" src={props.metadata.image_url} />
@@ -37,7 +37,7 @@ export const AvatarDisplays = (props) => (
       {props.customUrl || props.selectedNFT ? (
         <AvatarComponent
           variant="square"
-          src={props.customUrl || props.selectedNFT.image_url}
+          src={props.customUrl || props.selectedNFT.cached_file_url}
         />
       ) : (
         <AvatarComponent variant="square" src={props.metadata.background_image}>
