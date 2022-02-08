@@ -1,5 +1,4 @@
 export async function loadAllNFTs(address) {
-  var page = 0;
   const pages = [];
   console.log(address);
   do {
@@ -9,7 +8,6 @@ export async function loadAllNFTs(address) {
         pages.length > 0 && pages[pages.length - 1].continuation
       )
     );
-    page += 1;
     console.log(pages);
   } while (pages[pages.length - 1].nfts.length === 50);
   return pages
